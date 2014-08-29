@@ -19,10 +19,10 @@ if [ -f .fire/pre-install ]; then
     echo
 fi
 
-# TODO install recursively
-if [ -f package.json ]; then
-    npm install
-fi
+# npm install recursively
+for f in $(find . -name package.json | grep -v node_modules | sed 's@/package.json@@'); do
+    npm install --prefix $f
+done
 
 if [ -f .fire/post-install ]; then
     echo
